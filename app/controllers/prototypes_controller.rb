@@ -1,6 +1,6 @@
 class PrototypesController < ApplicationController
   def index
-    @prototypes = Prototype.all
+    @prototypes = Prototype.includes(:user)
   end
 
   def new
@@ -16,6 +16,8 @@ class PrototypesController < ApplicationController
       render :new, status: :unprocessable_entity
     end 
   end
+
+ 
 
   private
 
