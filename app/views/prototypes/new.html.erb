@@ -2,7 +2,46 @@
   <div class="inner">
     <div class="form__wrapper">
       <h2 class="page-heading">新規プロトタイプ投稿</h2>
-        <%# 部分テンプレートでフォームを表示する %>
+      <%= form_with(model: @prototype, local: true) do |form| %>
+        <div class="field">
+          <%= form.label :email, "メールアドレス" %>
+          <%= form.email_field :email, placeholder: "" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :password, "パスワード" %>
+          <%= form.password_field :password, placeholder: "" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :password_confirmation, "パスワード再入力" %>
+          <%= form.password_field :password_confirmation, placeholder: "" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :user_name, "ユーザー名" %>
+          <%= form.text_field :user_name, placeholder: "" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :profile, "プロフィール" %>
+          <%= form.text_field :profile, placeholder: "" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :affiliation, "所属" %>
+          <%= form.text_field :affiliation, placeholder: "" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :occupation, "役職" %>
+          <%= form.text_field :occupation, placeholder: "" %>
+        </div>
+
+        <div class="actions">
+          <%= form.submit "新規登録" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
