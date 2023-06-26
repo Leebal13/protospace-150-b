@@ -1,5 +1,6 @@
 class PrototypesController < ApplicationController
-
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :move_to_index, except: [:index, :show]
 
   def index
     @prototypes = Prototype.includes(:user)
@@ -8,7 +9,7 @@ class PrototypesController < ApplicationController
   def new
     @prototype = Prototype.new
   end
-  
+
   def create
     prototype = Prototype.new(prototype_params)
     if prototype.save
@@ -16,7 +17,18 @@ class PrototypesController < ApplicationController
     else
       @prototype = prototype
       render :new, status: :unprocessable_entity
-    end 
+    end
+  end
+  
+  def show
+    @prototype = Prototype.find(params[:id])
+  end
+  
+  def edit
+    @prototype = Prototype.find(params[:id])
+    if @prototype.user_id != current_user.id
+      redirect_to action: :index
+    end
   end
 
   def show
@@ -24,6 +36,14 @@ class PrototypesController < ApplicationController
 
   end
  
+  def update
+    @prototype = Prototype.find(params[:id])
+    if @prototype.update(prototype_params)
+      redirect_to action: :show
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
 
   private
 
@@ -31,10 +51,12 @@ class PrototypesController < ApplicationController
     params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
   end
 
-  def set_prototype
-    @prototype = Prototype.find(params[:id])
+
+  def move_to_index
+    unless user_signed_in?
+      redirect_to action: :index
+    end
   end
 
 
 end
- 
