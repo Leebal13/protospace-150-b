@@ -1,5 +1,5 @@
 class PrototypesController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :move_to_index, except: [:index, :show]
 
   def index
@@ -18,6 +18,10 @@ class PrototypesController < ApplicationController
       @prototype = prototype
       render :new, status: :unprocessable_entity
     end
+  end
+  
+  def show
+    @prototype = Prototype.find(params[:id])
   end
   
   def edit
@@ -47,4 +51,5 @@ class PrototypesController < ApplicationController
       redirect_to action: :index
     end
   end
+
 end
