@@ -22,6 +22,9 @@ class PrototypesController < ApplicationController
   
   def show
     @prototype = Prototype.find(params[:id])
+    @comment = Comment.new
+    @comments = @prototype.comments.includes(:user)
+  
   end
   
   def edit
@@ -31,10 +34,7 @@ class PrototypesController < ApplicationController
     end
   end
 
-  def show
 
-
-  end
  
   def update
     @prototype = Prototype.find(params[:id])
