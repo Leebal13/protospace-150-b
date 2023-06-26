@@ -36,9 +36,9 @@
           <%= form_with model: [@prototype,@comment],local: true do |f|%>
             <div class="field">
               <%# <%= f.label :hoge, "コメント" %><br />
-              <%= f.label :comment, "コメント" %><br />
+              <%= f.label :content, "コメント" %><br />
               <%# <%= f.text_field :hoge, id:"comment_content" %>
-              <%= f.text_field :comment, id:"comment_content" %>
+              <%= f.text_field :content, id:"comment_content" %>
               
             </div>
             <div class="actions">
@@ -57,7 +57,7 @@
               <%# <%= " コメントのテキスト "%>
               <%= comment.content%>
               <%# <%= link_to "（ ユーザー名 ）", root_path, class: :comment_user %>
-              <%= link_to comment.user.name, "/users/#{current_user.id}", class: :comment_user %>
+              <%= link_to comment.user.name, user_path(comment.user), class: :comment_user %>
             </li>
           <%# // 投稿に紐づくコメントを一覧する処理を記述する %>
           <% end %>
