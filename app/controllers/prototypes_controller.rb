@@ -1,4 +1,6 @@
 class PrototypesController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
+
   def index
     @prototypes = Prototype.includes(:user)
   end
@@ -6,7 +8,7 @@ class PrototypesController < ApplicationController
   def new
     @prototype = Prototype.new
   end
-  
+
   def create
     prototype = Prototype.new(prototype_params)
     if prototype.save
@@ -14,10 +16,8 @@ class PrototypesController < ApplicationController
     else
       @prototype = prototype
       render :new, status: :unprocessable_entity
-    end 
+    end
   end
-
- 
 
   private
 
@@ -25,4 +25,3 @@ class PrototypesController < ApplicationController
     params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
   end
 end
- 
