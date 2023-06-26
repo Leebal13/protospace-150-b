@@ -44,7 +44,6 @@ class PrototypesController < ApplicationController
     prototype = Prototype.find(params[:id])
     prototype.destroy
     redirect_to root_path
-    end
   end
 
   private
